@@ -24,11 +24,11 @@ class TestTrie(unittest.TestCase):
 
     def setUp(self):
         """Populate trie with TEST_VALUES"""
-        self.trie = trie.Trie(TEST_VALUES)
+        self.trie = trie.Trie(self.TEST_VALUES)
 
     def test_lookup(self):
         """Test we can lookup existing keys. Also test nonexistent keys will
            throw proper exception"""
-        for i in TEST_VALUES:
-            self.trie.assertEqual(TEST_VALUES[i] , self.trie.lookup([i]))
+        for i in self.TEST_VALUES:
+            self.trie.assertEqual(self.TEST_VALUES[i] , self.trie.lookup([i]))
         self.asserRaises(self.trie.KeyNotFound, self.trie.lookup("foobar"))
