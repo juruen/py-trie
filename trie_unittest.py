@@ -17,10 +17,12 @@
 import unittest
 import trie
 
+
 class TestTrie(unittest.TestCase):
     """Test unit for trie class"""
-    TEST_VALUES = {"A": 15, "to": 7, "tea": 3, "ted": 4 ,
-        "ten": 12, "i":11 , "in":5,  "inn": 9}
+
+    TEST_VALUES = {"A": 15, "to": 7, "tea": 3, "ted": 4,
+        "ten": 12, "i": 11, "in": 5,  "inn": 9}
 
     def setUp(self):
         """Populate trie with TEST_VALUES"""
@@ -30,5 +32,5 @@ class TestTrie(unittest.TestCase):
         """Test we can lookup existing keys. Also test nonexistent keys will
            throw proper exception"""
         for i in self.TEST_VALUES:
-            self.trie.assertEqual(self.TEST_VALUES[i] , self.trie.lookup([i]))
+            self.trie.assertEqual(self.TEST_VALUES[i], self.trie.lookup([i]))
         self.asserRaises(self.trie.KeyNotFound, self.trie.lookup("foobar"))

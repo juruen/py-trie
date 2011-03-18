@@ -14,8 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 class Trie():
     """This class implements a data structure known as trie or prefix tree"""
+
     def __init__(self, data=None):
         pass
 
@@ -24,9 +26,11 @@ class Trie():
             throw KeyNotFound exception"""
         pass
 
+
 class KeyNotFound(Exception):
     """Key not found in trie"""
     def __init__(self, key):
         self.key = key
+
     def __str__(self):
         return "key %s not found in trie" % (self.key)
