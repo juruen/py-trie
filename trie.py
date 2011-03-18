@@ -15,16 +15,57 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
+class TrieNode():
+    """Node of a trie"""
+    def __init__(self, letter, color, value=None):
+        self.letter = letter
+        self.value = value
+        self.color = color
+        self.children = {}
+
+    def to_str(self):
+        str = "letter: %s value %s color %s children %s " % (self.letter,
+                self.value, self.color, self.children.keys())
+        return str
+
+
 class Trie():
     """This class implements a data structure known as trie or prefix tree"""
 
     def __init__(self, data=None):
-        pass
+        self.root = TrieNode("", "red")
+        if data:
+            for i in data:
+                self.insert(i, data[i])
+
+    def insert(self, key, value):
+        node = self.root
+        for index, l in enumerate(key):
+            if index == len(key) - 1:
+                col = "black"
+                val = value
+            else:
+                col = "red"
+                val = None
+            if l in node.children:
+                node = node.children[l]
+                if col == "black":
+                    node.color = col
+                    node.value = val
+            else:
+                node.children[l] = TrieNode(letter=l, color=col, value=val)
+                node = node.children[l]
 
     def lookup(self, key):
         """Search key in trie and return its value if it is found. Otherwise
             throw KeyNotFound exception"""
-        pass
+        node = self.root
+        for index, l in enumerate(key):
+            if l in node.children:
+                node = node.children[l]
+            if (index == (len(key) - 1) and node.color == "black"):
+                return node.value
+        raise KeyNotFound(key)
 
 
 class KeyNotFound(Exception):
@@ -33,4 +74,4 @@ class KeyNotFound(Exception):
         self.key = key
 
     def __str__(self):
-        return "key %s not found in trie" % (self.key)
+        return "key '%s' not found in trie" % (self.key)

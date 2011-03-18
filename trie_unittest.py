@@ -32,5 +32,5 @@ class TestTrie(unittest.TestCase):
         """Test we can lookup existing keys. Also test nonexistent keys will
            throw proper exception"""
         for i in self.TEST_VALUES:
-            self.trie.assertEqual(self.TEST_VALUES[i], self.trie.lookup(i))
-        self.asserRaises(self.trie.KeyNotFound, self.trie.lookup("foobar"))
+            self.assertEqual(self.TEST_VALUES[i], self.trie.lookup(i))
+        self.assertRaises(trie.KeyNotFound, self.trie.lookup, "foobar")
