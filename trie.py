@@ -28,6 +28,9 @@ class TrieNode():
                 self.value, self.color, self.children.keys())
         return str
 
+    def child_num(self):
+        return len(self.children.keys())
+
 
 class Trie():
     """This class implements a data structure known as trie or prefix tree"""
@@ -63,9 +66,30 @@ class Trie():
         for index, l in enumerate(key):
             if l in node.children:
                 node = node.children[l]
+            else:
+                raise KeyNotFound(key)
             if (index == (len(key) - 1) and node.color == "black"):
                 return node.value
         raise KeyNotFound(key)
+
+    def delete(self, key):
+        """Delete a given key from trie"""
+        self.__delete(self.root, key)
+
+    def __delete(self, node, key, index=0):
+        """Delete a given key. Recursive approach"""
+        if index != len(key):
+            if key[index] not in node.children:
+                raise KeyNotFound(key)
+            if self.__delete(node.children[key[index]], key, index + 1):
+                del(node.children[key[index]])
+                return node.color == "red" and node.child_num() == 0
+            else:
+                return False
+        else:
+            if node.color == "red":
+                raise KeyNotFound(key)
+            return node.child_num() == 0
 
 
 class KeyNotFound(Exception):

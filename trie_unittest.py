@@ -34,3 +34,9 @@ class TestTrie(unittest.TestCase):
         for i in self.TEST_VALUES:
             self.assertEqual(self.TEST_VALUES[i], self.trie.lookup(i))
         self.assertRaises(trie.KeyNotFound, self.trie.lookup, "foobar")
+
+    def test_delete(self):
+        """Test we can delete keys sucessfully"""
+        for i in self.TEST_VALUES:
+            self.trie.delete(i)
+            self.assertRaises(trie.KeyNotFound, self.trie.lookup, i)
