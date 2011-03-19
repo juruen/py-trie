@@ -15,6 +15,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
+import tempfile
+import os
 import trie
 
 
@@ -40,3 +42,18 @@ class TestTrie(unittest.TestCase):
         for i in self.TEST_VALUES:
             self.trie.delete(i)
             self.assertRaises(trie.KeyNotFound, self.trie.lookup, i)
+
+    def test_file_operations(self):
+        """Test we can save and restore a trie"""
+        fd, path = tempfile.mkstemp()
+        try:
+            self.trie.save(path)
+            for i in self.TEST_VALUES:
+                self.trie.delete(i)
+            self.trie.load(path)
+            for i in self.TEST_VALUES:
+                self.assertEqual(self.TEST_VALUES[i], self.trie.lookup(i))
+        except Exception, e:
+            raise e
+        finally:
+            os.remove(path)

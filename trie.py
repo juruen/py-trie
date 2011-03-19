@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import pickle
+
 
 class TrieNode():
     """Node of a trie"""
@@ -77,6 +79,13 @@ class Trie():
     def delete(self, key):
         """Delete a given key from trie"""
         self.__delete(self.root, key)
+
+    def save(self, path):
+        """Dump trie to path"""
+        pickle.dump(self.root, open(path, "wb"))
+
+    def load(self, path):
+        self.root = pickle.load(open(path))
 
     def __delete(self, node, key, index=0):
         """Delete a given key. Recursive approach"""
