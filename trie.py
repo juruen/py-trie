@@ -20,6 +20,8 @@ class TrieNode():
     def __init__(self, letter, color, value=None):
         self.letter = letter
         self.value = value
+        # White nodes contain the end of a string. Conversely,
+        # black nodes contain inner characters of a string.
         self.color = color
         self.children = {}
 
