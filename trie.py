@@ -36,7 +36,7 @@ class Trie():
     """This class implements a data structure known as trie or prefix tree"""
 
     def __init__(self, data=None):
-        self.root = TrieNode("", "red")
+        self.root = TrieNode("", "black")
         if data:
             for i in data:
                 self.insert(i, data[i])
@@ -45,14 +45,14 @@ class Trie():
         node = self.root
         for index, l in enumerate(key):
             if index == len(key) - 1:
-                col = "black"
+                col = "white"
                 val = value
             else:
-                col = "red"
+                col = "black"
                 val = None
             if l in node.children:
                 node = node.children[l]
-                if col == "black":
+                if col == "white":
                     node.color = col
                     node.value = val
             else:
@@ -68,7 +68,7 @@ class Trie():
                 node = node.children[l]
             else:
                 raise KeyNotFound(key)
-            if (index == (len(key) - 1) and node.color == "black"):
+            if (index == (len(key) - 1) and node.color == "white"):
                 return node.value
         raise KeyNotFound(key)
 
@@ -83,12 +83,14 @@ class Trie():
                 raise KeyNotFound(key)
             if self.__delete(node.children[key[index]], key, index + 1):
                 del(node.children[key[index]])
-                return node.color == "red" and node.child_num() == 0
+                return node.color == "black" and node.child_num() == 0
             else:
                 return False
         else:
-            if node.color == "red":
+            if node.color == "black":
                 raise KeyNotFound(key)
+            else:
+                node.color = "black"
             return node.child_num() == 0
 
 
