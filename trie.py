@@ -19,8 +19,8 @@ import pickle
 
 class TrieNode():
     """Node of a trie"""
-    def __init__(self, letter, color, value=None):
-        self.letter = letter
+    def __init__(self, char, color, value=None):
+        self.char = char
         self.value = value
         # White nodes contain the end of a string. Conversely,
         # black nodes contain inner characters of a string.
@@ -28,7 +28,7 @@ class TrieNode():
         self.children = {}
 
     def to_str(self):
-        str = "letter: %s value %s color %s children %s " % (self.letter,
+        str = "char: %s value %s color %s children %s " % (self.char,
                 self.value, self.color, self.children.keys())
         return str
 
@@ -60,7 +60,7 @@ class Trie():
                     node.color = col
                     node.value = val
             else:
-                node.children[l] = TrieNode(letter=l, color=col, value=val)
+                node.children[l] = TrieNode(char=l, color=col, value=val)
                 node = node.children[l]
 
     def lookup(self, key):
