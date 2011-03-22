@@ -76,6 +76,21 @@ class Trie():
                 return node.value
         raise KeyNotFound(key)
 
+    def startwith(self, key):
+        """Search keys in trie that start with a given string."""
+        node = self.root
+        string = ""
+        for index, l in enumerate(key):
+            if l in node.children:
+                node = node.children[l]
+                string += l
+            else:
+                raise KeyNotFound(key)
+        results = []
+        # DSF traversal
+        self.__startwith(key, results, string, node)
+        return results
+
     def delete(self, key):
         """Delete a given key from trie"""
         self.__delete(self.root, key)
@@ -103,6 +118,18 @@ class Trie():
             else:
                 node.color = "black"
             return node.child_num() == 0
+
+    def __startwith(self, key, results, string, node):
+        if node.color == "white":
+            results.append((string, node.value))
+
+        children = node.children.keys()
+        children.sort()
+        if not children:
+            return
+
+        for l in children:
+            self.__startwith(key, results, string + l, node.children[l])
 
 
 class KeyNotFound(Exception):

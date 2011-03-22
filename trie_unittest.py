@@ -24,7 +24,7 @@ class TestTrie(unittest.TestCase):
     """Test unit for trie class"""
 
     TEST_VALUES = {"A": 15, "to": 7, "tea": 3, "ted": 4,
-        "ten": 12, "i": 11, "in": 5,  "inn": 9}
+        "ten": 12, "i": 11, "in": 5,  "inn": 9, "insa": 14, "insat": 15}
 
     def setUp(self):
         """Populate trie with TEST_VALUES"""
@@ -35,6 +35,15 @@ class TestTrie(unittest.TestCase):
            throw proper exception"""
         for i in self.TEST_VALUES:
             self.assertEqual(self.TEST_VALUES[i], self.trie.lookup(i))
+        self.assertRaises(trie.KeyNotFound, self.trie.lookup, "foobar")
+
+    def test_startwith(self):
+        """Test we can lookup existing keys starting with a given string"""
+        self.assertEqual(
+            [("i", 11), ("in", 5), ("inn", 9), ("insa", 14), ("insat", 15)],
+            self.trie.startwith("i"))
+        self.assertEqual(len(self.TEST_VALUES.keys()),
+            len(self.trie.startwith("")))
         self.assertRaises(trie.KeyNotFound, self.trie.lookup, "foobar")
 
     def test_delete(self):
