@@ -1,6 +1,19 @@
 py-trie
 =======
 
-Simple implementation of a trie data structure in python.
+Simple implementation of a trie data structure in Python.
 
+It supports partial key look-ups.
 
+Usage:
+
+>>> import trie
+>>>
+>>> trie = trie.Trie({"foo": 1, "bar": 2})
+>>> trie.insert("foobar", 4)
+>>> trie.delete("bar")
+>>> trie.lookup("foo")
+1
+>>> trie.startwith("foo")
+[('foo', 1), ('foobar', 4)]
+>>>
